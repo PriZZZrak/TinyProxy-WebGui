@@ -1,0 +1,8 @@
+<ul>
+    {% for site in existing_sites %}
+    <li>
+        {{ site }}
+        <button class="delete-button" data-site="{{ site }}">Удалить</button>
+    </li>
+    {% endfor %}
+</ul>
