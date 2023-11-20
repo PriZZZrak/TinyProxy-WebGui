@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+    tinytor:
+        container_name: TinyTor
+        build:
+          context: .
+        tty: true
+        ports:
+          - "8888:8888"
+          - "5000:5000"
+        network_mode: bridge
+        volumes:
+          - /mnt/user/appdata/tinytor/tor/config:/etc/tor/
+          - /mnt/user/appdata/tinytor/tinyproxy/config:/etc/tinyproxy/
+          - data:/var/lib/tor
+
+volumes:
+  data:
