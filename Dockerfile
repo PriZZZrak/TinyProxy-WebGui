@@ -11,7 +11,7 @@ RUN apt-get update \
 		python3-flask \
   		wget \
     && rm -rf /var/lib/apt/lists/*
-COPY start.sh start.sh
+RUN wget --no-check-certificate --content-disposition https://github.com/PriZZZrak/TinyProxy-WebGui/raw/main/start.sh
 RUN chmod +x start.sh
 CMD ./start.sh
 
