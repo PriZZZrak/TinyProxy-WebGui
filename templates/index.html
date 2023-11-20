@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Добавление сайта в прокси</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        #message {
+            margin-bottom: 10px;
+            padding: 10px;
+            font-weight: bold;
+        }
+
+        .success {
+            background-color: lightgreen;
+        }
+
+        .error {
+            background-color: salmon;
+        }
+
+        hr {
+            margin: 20px 0;
+            border: none;
+            border-top: 1px solid #ccc;
+        }
+
+        h2 {
+            color: #333;
+        }
+		
+		#site-list {
+        column-count: 3; /* Adjust the number of columns as needed */
+        column-gap: 20px; /* Adjust the gap between columns as needed */
+		}
+		
+        .site-list-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+        }
+
+        .delete-button {
+            padding: 5px 10px;
+            font-size: 14px;
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Добавление сайта в прокси</h1>
+
+    <form>
+        <input type="text" id="line" name="line" placeholder="Введите адрес сайта">
+        <br>
+        <button id="submit-button">Добавить</button>
+    </form>
+
+    <div id="message" class="message"></div>
+	<hr>
+
+    <h2>Сайты в прокси:</h2>
+    <div id="site-list">
+        <!-- Existing sites will be dynamically inserted here -->
+    </div>
+	
+   <script>
+        $(document).ready(function() {
+            // Function to refresh the site list
+            function refreshSiteList() {
+                $.ajax({
+                    type: 'GET',
+                    url: '/get_sites',
+                    success: function(response) {
+                        $('#site-list').html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error refreshing site list:', error);
+                    }
+                });
+            }
+
+            // Delete button click event handler
+            $(document).on('click', '.delete-button', function() {
+                var site = $(this).data('site');
+                deleteSite(site);
+            });
+
+            // Function to delete a site
+            function deleteSite(site) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/delete',
+                    data: { 'site': site },
+                    success: function(response) {
+                        $('#message').removeClass('error').addClass('success').text(response);
+                        refreshSiteList(); // Refresh the site list after deletion
+                    },
+                    error: function(xhr, status, error) {
+                        $('#message').removeClass('success').addClass('error').text('Произошла ошибка.');
+                    }
+                });
+            }
+            
+            // Function to add a site
+            function addSite() {
+                var line = $('#line').val();
+				
+                if (line.trim() !== '') {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/',
+                        data: { 'line': line },
+                        success: function(response) {
+                            $('#message').removeClass('error').addClass('success').text(response);
+                            $('#line').val(''); // Clear the input field
+                            refreshSiteList(); // Refresh the site list after adding a new site
+                        },
+                        error: function(xhr, status, error) {
+                            $('#message').removeClass('success').addClass('error').text('Произошла ошибка.');
+                        }
+                    });
+                } else {
+                    $('#message').removeClass('success').addClass('error').text('Поле не может быть пустым.');
+                }
+            }
+
+            // Submit button click event handler
+            $('#submit-button').click(function(event) {
+                event.preventDefault(); // Prevent the default form submission behavior
+                addSite();
+            });
+
+            // Initial site list retrieval
+            refreshSiteList();
+        });
+    </script>
+</body>
+</html>
