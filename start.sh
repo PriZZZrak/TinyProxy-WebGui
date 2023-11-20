@@ -1,6 +1,7 @@
 #!/bin/bash
 
 mkdir -p /var/lib/tor/onion-auth/
+chown 100:101 /var/lib/tor/onion-auth/
 # Start the first process
 service tinyproxy start > /var/log/tinyproxy.log 2>&1 &
 
