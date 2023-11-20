@@ -13,7 +13,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 RUN wget --no-check-certificate --content-disposition https://github.com/PriZZZrak/TinyProxy-WebGui/raw/main/start.sh
 RUN cd /etc/tinyproxy
-RUN mkkdir web
+RUN mkdir web
 RUN wget --no-check-certificate --content-disposition https://github.com/PriZZZrak/TinyProxy-WebGui/raw/main/webapp/app.py
 RUN mkdir templates
 RUN cd templates
