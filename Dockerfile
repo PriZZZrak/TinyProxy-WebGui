@@ -9,17 +9,12 @@ RUN apt-get update \
 		tinyproxy \
 		python3 \
 		python3-flask \
-  		wget \
     && rm -rf /var/lib/apt/lists/*
-RUN wget --no-check-certificate --content-disposition https://github.com/PriZZZrak/TinyProxy-WebGui/raw/main/start.sh
-RUN cd /etc/tinyproxy
-RUN mkdir web
-RUN wget --no-check-certificate --content-disposition https://github.com/PriZZZrak/TinyProxy-WebGui/raw/main/webapp/app.py
-RUN mkdir templates
-RUN cd templates
-RUN wget --no-check-certificate --content-disposition https://github.com/PriZZZrak/TinyProxy-WebGui/raw/main/webapp/templates/index.html
-RUN wget --no-check-certificate --content-disposition https://github.com/PriZZZrak/TinyProxy-WebGui/raw/main/webapp/templates/site_list.html
+ADD https://github.com/PriZZZrak/TinyProxy-WebGui/raw/main/start.sh ./
 RUN chmod +x start.sh
+ADD https://github.com/PriZZZrak/TinyProxy-WebGui/raw/main/webapp/app.py /web/
+ADD https://github.com/PriZZZrak/TinyProxy-WebGui/raw/main/webapp/templates/index.html /web/templates/
+ADD https://github.com/PriZZZrak/TinyProxy-WebGui/raw/main/webapp/templates/site_list.html /web/templates/
 CMD ./start.sh
 
 	
