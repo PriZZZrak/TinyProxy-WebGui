@@ -7,8 +7,7 @@ service tinyproxy start > /var/log/tinyproxy.log 2>&1 &
 service tor start &
 
 # Start the Flask application
-cd /etc/tinyproxy/web/
-python3 app.py > /var/log/flask.log 2>&1 &
+python3 /web/app.py > /var/log/flask.log 2>&1 &
 
 tail -f /var/log/tinyproxy.log /var/lib/tor/notice.log /var/log/flask.log
 
