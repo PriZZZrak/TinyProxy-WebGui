@@ -1,0 +1,18 @@
+SocksPort 9050
+HTTPTunnelPort 0
+UseBridges 1
+ClientTransportPlugin obfs4 exec /usr/bin/obfs4proxy
+
+Bridge obfs4 185.177.207.153:8443 6574D4D903FDE714F2759A3B3C31C0363A92DCDC cert=VAZd6bOJ6BKUZLLOYhMuaSPxjf+ZGAspvdQkf8C3naGk8r2b77WXWj9JF8+jLYb8l2fnUw iat-mode=0
+
+GeoIPFile /usr/share/tor/geoip
+
+GeoIPv6File /usr/share/tor/geoip6
+
+DataDirectory /var/lib/tor
+ClientOnionAuthDir /var/lib/tor/onion-auth
+
+CookieAuthentication 1
+AvoidDiskWrites 1
+
+Log notice file /var/lib/tor/notice.log
