@@ -15,6 +15,8 @@ RUN chmod +x start.sh
 ADD https://github.com/PriZZZrak/TinyProxy-WebGui/raw/main/webapp/app.py /web/
 ADD https://github.com/PriZZZrak/TinyProxy-WebGui/raw/main/webapp/templates/index.html /web/templates/
 ADD https://github.com/PriZZZrak/TinyProxy-WebGui/raw/main/webapp/templates/site_list.html /web/templates/
+ADD https://github.com/PriZZZrak/TinyProxy-WebGui/raw/main/config/torrc.base /config/
+ADD https://github.com/PriZZZrak/TinyProxy-WebGui/raw/main/config/tinyproxy.base /config/
 CMD ./start.sh
 
 	
