@@ -2,6 +2,8 @@
 
 mkdir -p /var/lib/tor/onion-auth/
 chown 100:101 /var/lib/tor/onion-auth/
+cp -n /config/torrc.base /etc/tor/torrc
+cp -n /config/tinyproxy.base /etc/tinyproxy/tinyproxy.conf
 # Start the first process
 service tinyproxy start > /var/log/tinyproxy.log 2>&1 &
 
