@@ -11,8 +11,8 @@ services:
           - "5000:5000"
         network_mode: bridge
         volumes:
-          - /mnt/user/appdata/tinytor/tor/config:/etc/tor/
-          - /mnt/user/appdata/tinytor/tinyproxy/config:/etc/tinyproxy/
+          - /mnt/user/appdata/tinytor/tor:/etc/tor/
+          - /mnt/user/appdata/tinytor/tinyproxy:/etc/tinyproxy/
           - data:/var/lib/tor
 
 volumes:
