@@ -58,9 +58,6 @@ def sanitize_line(line_text):
     
     line_text = line_text.split('/')[0]
     
-    if not line_text.startswith('.'):
-        line_text = '.' + line_text
-    
     return line_text
 
 def remove_site_from_config(site):
